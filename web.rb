@@ -26,6 +26,18 @@ Dotenv.load
 Stripe.api_key = ENV['STRIPE_ENV'] == 'production' ? ENV['STRIPE_SECRET_KEY'] : ENV['STRIPE_TEST_SECRET_KEY']
 Stripe.api_version = '2020-03-02'
 
+Stripe::Terminal::Configuration.create(
+  {
+    tipping: {
+      usd: {
+        percentages: [15, 20, 25],
+        fixed_amounts: [100, 200, 300],
+        smart_tip_threshold: 1000,
+      },
+    },
+  },
+)
+
 def log_info(message)
   puts "\n" + message + "\n\n"
   return message
